@@ -1,0 +1,96 @@
+use  ecommerce;
+
+show tables;
+
+insert into clients (Fname, Minit, Lname, CPF, Address) values
+		('Maria', 'M', 'Silva', 123456789, 'rua silva de prata 29, carangola - cidade das flores'),
+		('Matheus', 'O', 'Pimentel', 987654321, 'rua alameda 289, Centro - cidade das flores'),
+            	('Ricardo', 'F', 'Silva', 456789123, 'avenida alameda vinha 1009, Centro - cidade das flores'),
+            	('Julia','S', 'Silva', 789582123, 'rua laranjeiras 861, Centro - cidades das flores'),
+            	('Roberta', 'G', 'Assis', 987369741, 'avenida de koller 19, Centro - cidades das flores'),
+            	('Isabela', 'M', 'Cruz', 357159654, 'rua alameda das flores 159, Centro - cidade das flores');
+            
+            
+insert into product (Pname, classification_kids, Category, Avaliation, Size)  values
+				('Fone de ouvido', false, 'Eletrônico', '4', null),
+                                ('Barbie Elsa',true, 'Brinquedos','3',null),
+                                ('Body Carters', true, 'Vestimenta','5',null),
+                                ('Microfone vedo - youtuber', false, 'Eletrônico','4',null),
+                                ('Sofá retrátil',false, 'Móveis','3',null),
+                                ('Farinha de arroz', false, 'Alimentos','2',null),
+                                ('Fire Stick Amazon', false, 'Eletrônico', '3',null);
+
+
+insert into orders (idOrderClient, orderStatus, orderDescrition, sendValue, paymentCash) values
+			(1, default, 'compra via aplocativo', null, 1),
+                        (2, default, 'compra via aplicativo', 50, 0),
+                        (3, 'Confirmado',null,null,1),
+                        (4,default, 'compra via web site', 150,0);
+                            
+
+insert into productOrder (idPOproduct, idPOorder, poQuantity, poStatus) values
+				(1,1,2,null),
+                            	(2,1,1,null),
+                            	(3,2,1,null);
+                            
+
+insert into productStorage (storageLocation, quantity) values
+				('Rio de Janeiro', 1000),
+                            	('Rio de Janeiro', 500),
+                            	('Belo Horizonte', 10),
+                            	('São Paulo', 2000),
+                            	('Porto Alegre', 500),
+                            	('Porto Alegre', 60);
+                            
+
+insert into storageLocation (idLproduct, idLstorage, location) values
+			(1,2,'RJ'),
+                        (2,6,'MG');
+                        
+
+insert into supplier (SocialName, CNPJ, contact) values
+			('Almeida e filhos', 123456789123456, 21985474),
+                   	('Eletrônicos Silva', 987654321074125, 26498462),
+                    	('Eletrônicos Valma', 369852147025879, 20364185),
+			('Aliança Móveis', 123258963014784, 63251478),
+               		('South Clothes', 258741963025874, 81963251),
+                	('Alimentos Cia', 369874125014789, 12345678);
+
+                    
+insert into productSupplier (idPsSupplier, idPsProduct, quantity) values
+				(1,1,500),
+                            	(1,2,400),
+                            	(2,4,633),
+                            	(3,3,5),
+                            	(2,5,100);
+
+                            
+insert into seller (SocialName, AbstName, CNPJ, CPF, location, contact) values
+			('Tech eletronics', null, 123456789036985, null, 'Rio de Janeiro', 219946287),
+                        ('Botique Durgas', null, null, 123456789, 'Rio de Janeiro', 21956895),
+                        ('Kids World', null, 456789130987502, null, 'São Paulo', 119657484);
+
+
+insert into productSeller (idPseller, idPproduct, prodQuantity) values
+				(1,6,80),
+                            	(2,7,10);
+
+
+insert into clientsPJ (idClientPJ, CNPJ) values
+		(1, 12345678901234),
+                (3, 32165498709874),
+                (5, 36985201473574);
+
+                
+insert into clientsPF (idClientPF, CPF) values
+		(2, 123456789),
+                (4, 321654987),
+                (6, 369852014);
+
+                
+insert into payment (idPaymentClient, typePayment, limitAvilable, idPaymentOrders) values
+		(3, 'Credito', 100.00, 1),
+                (4, 'Credito', 100.00, 2),
+                (5, 'PIX', 50.00, 3),
+                (1, 'Debito', 250.00, 4),
+                (2, 'Boleto', 100.00, 5);

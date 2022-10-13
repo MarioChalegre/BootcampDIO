@@ -1,0 +1,150 @@
+create database ecommerce;
+use ecommerce;
+
+-- Criar tabela cliente
+create table clients(
+	idClient INT auto_increment primary key,
+    	FName VARCHAR(10) NOT NULL,
+    	Minit CHAR(3),
+    	Lname VARCHAR(10),
+    	CPF CHAR(11) NOT NULL,
+    	Address VARCHAR(100),
+    	constraint unique_cpf_client unique (CPF)
+);
+desc clients;
+alter table clients auto_increment=1;
+
+-- produto
+create table product(
+	idProduct INT auto_increment primary key,
+    	Pname VARCHAR(30) NOT NULL,
+    	classification_kids bool default false,
+    	Category enum('Eletrônico', 'Vestimenta', 'Brinquedos', 'Móveis','Alimentos') NOT NULL,
+    	Avaliation FLOAT default 0,
+    	Size VARCHAR(10)
+);
+
+-- pedido
+create table orders(
+	idorder int auto_increment primary key,
+    	idOrderClient INT,
+    	orderStatus ENUM('Cancelado', 'Confirmado', 'Em Processamento') default 'Em Processamento',
+    	orderDescrition VARCHAR(255),
+    	sendValue FLOAT DEFAULT 10,
+    	paymentCash boolean default false,
+    	constraint fk_orders_client foreign key (idOrderClient) references clients(idClient)
+			on update cascade
+);
+desc orders;
+
+-- Estoque
+create table productStorage(
+	idProdStorage int auto_increment primary key,
+    	storageLocation VARCHAR(255),
+    	quantity VARCHAR(255)
+);
+
+-- Fornecedor
+create table supplier(
+	idSupplier int auto_increment primary key,
+    	socialName VARCHAR(30) NOT NULL,
+   	CNPJ char(15) NOT NULL,
+    	contact char(11) NOT NULL,
+    	constraint unique_supplier unique (CNPJ)
+);
+desc supplier;
+
+-- Vendedor
+create table seller(
+	idSeller int auto_increment primary key,
+   	socialName VARCHAR(30) NOT NULL,
+	AbstName varchar(255),
+    	CNPJ char(15),
+    	CPF CHAR(9),
+    	location varchar(45),
+    	contact char(11) NOT NULL,
+    	constraint unique_cnpj_seller unique (CNPJ),
+    	constraint unique_cpf_seller unique (CPF)
+);
+desc seller;
+
+-- Produto Vendedor
+create table productSeller(
+	idPseller int,
+	idPproduct int,
+	prodQuantity int default 1,
+	primary key (idPseller, idPproduct),
+	constraint fk_product_seller foreign key (idPseller) references seller(idSeller),
+	constraint fk_product_product foreign key (idPproduct) references product(idProduct)
+);
+desc productSeller;
+
+-- Produto Pedido
+create table productOrder(
+	idPOproduct int,
+	idPOorder int,
+	poQuantity int default 1,
+	poStatus enum('Disponível', 'Sem Estoque') default 'Disponível',
+	primary key (idPOproduct, idPOorder),
+	constraint fk_producordert_seller foreign key (idPOproduct) references product(idProduct),
+	constraint fk_productorder_product foreign key (idPOproduct) references orders(idOrder)
+);
+
+-- Local Estoque
+create table storageLocation(
+	idLproduct int,
+	idLstorage int,
+	location varchar(255) not null,
+	primary key (idLproduct, idLstorage),
+	constraint fk_storageLocation_product foreign key (idLproduct) references product(idProduct),
+	constraint fk_storage_Location_storage foreign key (idLstorage) references productStorage(idProdStorage)
+);
+
+-- Produto Fornecedor
+create table productSupplier(
+	idPsSupplier int,
+	idPsProduct int,
+	quantity int not null,
+	primary key (idPsSupplier, idPsProduct),
+	constraint fk_product_supplier_supplier foreign key (idPsSupplier) references supplier(idSupplier),
+	constraint fk_product_supplier_product foreign key (idPsProduct) references product(idProduct)
+);
+desc productSupplier;
+
+-- Cliente CNPJ
+create table clientsPJ(
+	idClientPJ INT AUTO_INCREMENT PRIMARY KEY,
+    	CNPJ CHAR(14),
+    	constraint fk_clientPJ_client foreign key (idClientPJ) references clients(idClients),
+    	constraint unique_cnpj_client unique (CNPJ)
+);
+
+-- Cliente CPF
+create table clientsPF(
+	idClientPJ INT AUTO_INCREMENT PRIMARY KEY,
+    	CPF CHAR(14),
+    	constraint fk_clientPF_client foreign key (idClientPF) references clients(idClients),
+    	constraint unique_cnpj_client unique (CPF)
+);
+
+-- Entrega
+create table delivery(
+	idDelivery INT AUTO_INCREMENT PRIMARY KEY,
+    	idDeliveryClient INT,
+   	deliveryStatus ENUM("Em Processando", "Enviado", "Entregue"),
+    	refCode INT,
+    	deliveryDate DATE,
+    	orderDate DATE,
+    	constraint fk_idDeliveryClient_client foreign key (idDeliveryClient) references clients(idClient),
+    	constraint unique_RefCode unique (refCode)
+);
+
+-- Pagamento
+create table payment(
+	idPaymentClient int,
+    	idPayment int auto_increment,
+    	typePayment set('Boleto', 'Debito', 'Credito', 'PIX'),
+    	limitAvilable float,
+    	primary key(idPayment),
+    	constraint fk_idclient_client foreign key (idPaymentClient) references clients(idClient)
+);

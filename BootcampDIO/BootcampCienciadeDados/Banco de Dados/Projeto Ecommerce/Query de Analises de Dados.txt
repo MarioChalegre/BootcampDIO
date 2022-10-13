@@ -1,0 +1,68 @@
+-- Criação de Querys
+use ecommerce;
+
+select * from orders;
+desc product;
+
+-- Relação de pedidos por cliente e pagemento
+SELECT concat(Fname,' ', Lname) as Cliente, idOrder as Request, orderStatus as OrderStatus, typePayment as Tipo_Pagamento 
+	FROM clients c
+	INNER JOIN orders o ON c.idClient = idOrderClient
+    	INNER JOIN payment p ON p.idPaymentOrders = idOrder
+    	ORDER BY Request desc;
+    
+-- Quantidade de pagamentos por Tipo de pagamento
+SELECT count(*) as Qtde, typePayment as Tipo_Pagamento FROM payment p, clients c
+	WHERE c.idClient = p.idPaymentClient
+	GROUP BY typePayment
+    	ORDER BY Qtde desc;
+
+-- Quantidades de pedidos por clientes com p INNER JOIN
+SELECT idClient, concat(Fname, ' ', Lname) as Cliente, orderDescrition as Descricao_Compra, count(*) as Qtde_Pedidos FROM clients as c
+	INNER JOIN orders as o on c.idClient = o.idOrderClient
+    	GROUP BY Cliente, idClient
+    	ORDER BY idClient;
+    
+-- Relação entre Produtos e fornecedores
+SELECT idSupplier as ID, socialName as Fornecedor, Pname as Produto FROM supplier s, product p
+	WHERE s.idSupplier = p.idProductSupplier
+    	ORDER BY ID;
+
+-- Quantidade de Pedidos por Clientes
+SELECT concat(Fname, ' ', Lname) as Cliente, count(*) as Qtde_Pedido FROM clients c, orders o
+	WHERE c.idClient = o.idOrderClient
+    	GROUP BY Cliente
+    	HAVING Qtde_Pedido = 1
+    	ORDER BY Qtde_Pedido desc;
+
+-- Relação de ordem de pedidos com produtos e clientes
+SELECT c.idClient, fName, count(*) as Number_of_order FROM clients c 
+		INNER JOIN orders o on c.idClient = o.idOrderClient
+		INNER JOIN productOrder p on p.idPOorder = o.idOrder
+		GROUP BY idClient;
+
+-- Relação Produto, Fornecedor e Estoque
+SELECT idProduct as ID, Pname as Produto, Category as Categoria, socialName as Fornecedor, CNPJ, quantity as Qtde, storageLocation as Localização_Estoque FROM product p
+	INNER JOIN supplier as s ON s.idSupplier = p.idProductSupplier
+    	INNER JOIN storageLocation as sl ON sl.idLProduct = p.idProduct
+	INNER JOIN productStorage as ps on ps.idProdStorage = sl.idLstoragE
+    	ORDER BY idProduct, idSupplier;
+
+	-- adicionando coluna com id de supplier e fazendo a relação com a tabela de products por uma foreign key
+alter table product add idProductSupplier int;
+alter table product add constraint fk_idProductSupplier_supplier foreign key (idProductSupplier) references supplier(idSupplier);
+
+
+-- adicionando os ID dos supplliers na tabela
+UPDATE product set idProductSupplier=2 where idProduct=1;
+UPDATE product set idProductSupplier=1 where idProduct=2;
+UPDATE product set idProductSupplier=5 where idProduct=3;
+UPDATE product set idProductSupplier=3 where idProduct=4;
+UPDATE product set idProductSupplier=4 where idProduct=5;
+UPDATE product set idProductSupplier=6 where idProduct=6;
+UPDATE product set idProductSupplier=1 where idProduct=7;
+                    
+
+            
+
+    
