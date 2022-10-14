@@ -1,0 +1,33 @@
+-- Relação dos pedidos, produros , fornecedor por cliente 
+select idPedido, Pnome as Produto, categoria as Categoria, razaoSocial as Fornecedo,concat(Fname, ' ', Lname) as Cliente, precoUnitario as ValorCompra from pedidos
+	INNER JOIN produtos on idPProduto = idProduto
+    	INNER JOIN fornecedor on idFornecedor = idPFornecedor
+    	INNER JOIN clientes on idCliente = idPCliente
+    	ORDER BY idPedido;
+    
+-- Contas a Receber dos clientes
+select idContaReceber as id_Conta, valorConta as Valor_Receber, concat(Fname, ' ', Lname) as Cliente, CStatus as Status
+	from contasReceber
+	INNER JOIN pedidos on idPedido = idCPedido
+    	INNER JOIN clientes on idCliente = idPCliente;
+    
+-- Contas a Pagar aos Fornecedores com maior de 2000
+select idContaPagar as id_Conta, valorConta as Valor_Pagar, razaoSocial as Fornecedor, CStatus as Status
+	from contasPagar
+    	INNER JOIN fornecedor f on f.idFornecedor = idCFornecedor
+   	HAVING Valor_Pagar > 2000;
+
+-- Lista de produtos, estoque e fornecedores 
+select idProduto as ID, Pnome as Produto, razaoSocial as Fornecedor, Qtde, precoUnitario as Valor_Unitário, localEstoque 
+	from produtos
+    	INNER JOIN fornecedor on idFornecedor = idPFornecedor
+    	INNER JOIN produtoEstoque on idEProduto = idProduto
+    	INNER JOIN localEstoque on idEstoque = idPLEstoque;
+
+-- Lista de QUantidade de produtos por Fornecedor
+select count(idProduto) as Qtde, razaoSocial as Fornecedor
+	from produtos
+    	INNER JOIN fornecedor on idPFornecedor = idFornecedor
+    	GROUP BY fornecedor
+    	ORDER BY Qtde;
+    
