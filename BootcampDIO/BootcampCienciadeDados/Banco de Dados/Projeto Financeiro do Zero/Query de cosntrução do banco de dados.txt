@@ -1,0 +1,73 @@
+create database Financeiro;
+use Financeiro;
+
+CREATE TABLE clientes(
+	idCliente INT PRIMARY KEY AUTO_INCREMENT,
+    Fname VARCHAR(10) NOT NULL,
+    Lname VARCHAR(10) NOT NULL,
+    CPF CHAR(11),
+    endereco VARCHAR(100),
+    ativo BOOLEAN
+);
+
+CREATE TABLE fornecedor(
+	idFornecedor INT PRIMARY KEY AUTO_INCREMENT,
+    razaoSocial VARCHAR(45) NOT NULL,
+    CNPJ CHAR(14),
+    endereco VARCHAR(100),
+    ativo BOOLEAN
+);
+
+CREATE TABLE produtos(
+	idProduto INT PRIMARY KEY AUTO_INCREMENT,
+    	idPFornecedor INT,
+    	Pnome VARCHAR(45) NOT NULL,
+    	categoria ENUM("Eletrônico", "Móveis", "Roupas"),
+    	precoUnitario FLOAT
+);
+alter table produtos add constraint fk_idFornecedor_fornecedor foreign key (idPFornecedor) references fornecedor(idFornecedor);
+
+CREATE TABLE localEstoque(
+	idEstoque INT PRIMARY KEY AUTO_INCREMENT,
+    	localEstoque VARCHAR(30)
+);
+
+CREATE TABLE produtoEstoque(
+	idPdtEstoque INT PRIMARY KEY AUTO_INCREMENT,
+    	idPLEstoque INT,
+    	idEProduto INT,
+    	Qtde INT
+);
+alter table produtoEstoque add constraint fk_localestoque_localEstoque foreign key (idPLEstoque) references localEstoque(idEstoque);
+alter table produtoEstoque add constraint fk_produtoestoque_estoque foreign key (idEProduto) references produtos(idProduto);
+
+CREATE TABLE pedidos(
+	idPedido INT PRIMARY KEY AUTO_INCREMENT,
+    	idPCliente INT,
+    	idPProduto INT,
+   	Pstatus ENUM("Processando", "Confirmado") default "Processando"
+);
+alter table pedidos drop constraint fk_idCliente_Cliente; -- foreign key (idPCliente) references clientes(idCliente);
+alter table pedidos add constraint fk_pedidosprodutos_produtos foreign key (idPProduto) references produtos(idProduto);
+
+CREATE TABLE contasPagar(
+	idContaPagar INT PRIMARY KEY AUTO_INCREMENT,
+    	idCFornecedor INT,
+    	dataEmissao DATE,
+    	dataVencimento DATE,
+    	valorConta FLOAT,
+    	Cstatus ENUM("Pago", "Pagar Hoje", "Pendente", "Vencido", "À Vencer")
+);
+alter table contasPagar add constraint fk_idcontasfornecedor_fornecedor foreign key (idCFornecedor) references fornecedor(idFornecedor);
+
+CREATE TABLE contasReceber(
+	idContaReceber INT PRIMARY KEY AUTO_INCREMENT,
+    	idCCliente INT,
+    	IdCPedido INT,
+    	dataEmissao DATE,
+    	dataVencimento DATE,
+    	valorConta FLOAT,
+    	Cstatus ENUM("Pago", "Pagar Hoje", "Pendente", "Vencido", "À Vencer")
+);
+alter table contasReceber add constraint fk_idcontascliente_cliente foreign key (idCCliente) references clientes(idCliente);
+alter table contasReceber add constraint fk_ContasPedidos_Pedidos foreign key (IdCPedido) references pedidos(idPedido);	
