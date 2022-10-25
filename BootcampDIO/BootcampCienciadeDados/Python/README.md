@@ -1,4 +1,4 @@
-# Repositório do Desafio de Projeto de Pyrthon da DIO
+# Repositório do Desafio de Projeto de Python da DIO
 Repositório criado para o Desafio de Projeto
 
 Analise exploratoria de dados em Python no Google Colab, 
