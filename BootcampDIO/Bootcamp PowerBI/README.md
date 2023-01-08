@@ -1,10 +1,7 @@
-# Repositório do Desafio de Projeto sobre Git/GitHub da DIO
+# Repositório do Desafio de Projeto sobre PowerBI
 Repositório criado para o Desafio de Projeto
 
-Segundo Desafio de Projeto com Modelagem de Dados na área de E-Commerce,
-Foi criado um schema com o um sistemas de cadastros de clients por PJ ou PF,
-Fazendo um levantamento de pedido com relaçao entre pedido e formas de pagamentos.
-
-Terceiro Desafio de Projeto com modelagem do zero e relação a uma Oficina Mecanica,
-Trazendo dados de clientes, mecânicos, veículos, Ordem de Serviço e muito mais relacionado a uma oficina,
-incrível trabalho, para poder pensar e ter conceitos na criação de um esquema relacional.
+# Primerio Projeto: 
+Projeto de Finanças criado com um sample do Power BI, trazendo os dados referente a lucro, vendas e localizações.
+Foi criado medidas, relacionadas as médias, soma e coontagem sobre os dados especificos.
+Foi dividdas tabelas fatos e dimensões, criando assim relacionamentos entre as tabelas para ter a conexão melhor dos dados.
