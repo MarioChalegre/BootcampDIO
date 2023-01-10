@@ -6,3 +6,10 @@ Projeto de Finanças criado com um sample do Power BI, trazendo os dados referen
 Foi criado medidas, relacionadas as médias, soma e coontagem sobre os dados especificos.
 Foi dividdas tabelas fatos e dimensões, criando assim relacionamentos entre as tabelas para ter a conexão melhor dos dados.
 Link: https://app.powerbi.com/groups/me/reports/18225dbb-f8cf-4ce3-95a7-e419387837bc/ReportSection
+
+
+Segundo Projeto:
+Projeto de finanças voltado mais para Profit e Sales, feito um layout melhorado.
+Colocando blocos de arvore, funil e muitos outros para poder explorar melhor os visuais disponiveis.
+Layout de background feito oelo Figma.
+Link: 
