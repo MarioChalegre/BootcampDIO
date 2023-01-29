@@ -1,10 +1,4 @@
-# Repositório do Desafio de Projeto sobre Git/GitHub da DIO
-Repositório criado para o Desafio de Projeto
-
-Segundo Desafio de Projeto com Modelagem de Dados na área de E-Commerce,
-Foi criado um schema com o um sistemas de cadastros de clients por PJ ou PF,
-Fazendo um levantamento de pedido com relaçao entre pedido e formas de pagamentos.
-
-Terceiro Desafio de Projeto com modelagem do zero e relação a uma Oficina Mecanica,
-Trazendo dados de clientes, mecânicos, veículos, Ordem de Serviço e muito mais relacionado a uma oficina,
-incrível trabalho, para poder pensar e ter conceitos na criação de um esquema relacional.
+# Projeto 1 do Modulo 4
+Criação de uma star schema no workbench referente a professor e cursos.
+Foi criado 1 tabela fato contendo informação de dados do professor;
+4 tabelas dimensão contendo dados sobre Curso, Departamento, Turma e Calendario.
