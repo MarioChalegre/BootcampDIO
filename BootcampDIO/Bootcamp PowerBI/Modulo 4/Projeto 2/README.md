@@ -12,7 +12,7 @@
  - dCalendario: Colunas: (Date, Mês Ano (Abr), Mês (Nome), Ano)
 
 Medidas criadas
-- # Unit Solds: SUM(fVendas[Units Sold])
+- Unit Solds: SUM(fVendas[Units Sold])
 - $ Sales: SUM(fVendas[ Sales])
 - ! Max Sales: MAX(fVendas[ Sales])
 - ! Min Sales: MIN(fVendas[ Sales])
